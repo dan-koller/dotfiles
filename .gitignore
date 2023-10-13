@@ -11,4 +11,4 @@ Thumbs.db
 .Trashes
 
 # Local zprofile settings
-/configuration/.zprofile
+/configs/.zprofile

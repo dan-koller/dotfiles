@@ -22,7 +22,7 @@ ENDCOLOR="\e[0m" # Reset
 
 # Check if commandline args are given
 if [ $# -eq 0 ]; then
-    echo -e "${RED}Please specifiy the Hostname './install.sh <hostname>' and run the script again.${ENDCOLOR}"
+    echo -e "${RED}Please specifiy the Hostname './install.sh <hostname> <gitname> <gitemail>' and run the script again.${ENDCOLOR}"
     exit 1
 fi
 
@@ -50,7 +50,7 @@ sudo scutil --set HostName $1
 HOMEDIR="$HOME"
 
 # Directory for dotfiles
-DOTFILESDIR="$HOMEDIR/dotfiles"
+DOTFILESDIR="$HOMEDIR/.dotfiles"
 
 # Directory for config files
 CONFIGDIR="$DOTFILESDIR/configs"
@@ -104,11 +104,13 @@ done
 echo "Changing into ${DOTFILESDIR} directory..."
 cd $DOTFILESDIR
 
-# Setup git
-echo "${YELLOW}🔧 Setting up git...${ENDCOLOR}"
-git config --global user.name "$GITNAME"
-git config --global user.email "$GITMAIL"
-echo "${GREEN}...done!${ENDCOLOR}"
+# Setup git if gitname and gitmail are given
+if [ -n "$GITNAME" ] && [ -n "$GITMAIL" ]; then
+    echo "${YELLOW}🔧 Setting up git...${ENDCOLOR}"
+    git config --global user.name "$GITNAME"
+    git config --global user.email "$GITMAIL"
+    echo "${GREEN}...done!${ENDCOLOR}"
+fi
 
 ###########################
 # Package installation
@@ -116,12 +118,12 @@ echo "${GREEN}...done!${ENDCOLOR}"
 
 # Run the Homebrew script and install packages
 echo "${YELLOW}🍺 Installing packages...${ENDCOLOR}"
-./min-install.sh
+zsh ./min-install.sh
 
 # If --full is given, install additional packages
 if [ "$INSTALL_MODE" = "full" ]; then
     echo "${YELLOW}Installing additional packages...${ENDCOLOR}"
-    ./full-install.sh
+    zsh ./full-install.sh
 fi
 
 echo "${GREEN}...done!${ENDCOLOR}"
