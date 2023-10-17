@@ -118,12 +118,12 @@ fi
 
 # Run the Homebrew script and install packages
 echo "${YELLOW}🍺 Installing packages...${ENDCOLOR}"
-zsh ./min-install.sh
+./min-install.sh
 
 # If --full is given, install additional packages
 if [ "$INSTALL_MODE" = "full" ]; then
     echo "${YELLOW}Installing additional packages...${ENDCOLOR}"
-    zsh ./full-install.sh
+    ./full-install.sh
 fi
 
 echo "${GREEN}...done!${ENDCOLOR}"
