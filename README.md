@@ -10,4 +10,4 @@
 
 _Please make sure to specify the hostname as cli argument. You can also provide a `--full` flag to install all apps._
 
-Example: `./install.sh MyMacBookPro "John Doe" "john.doe@example.com"`
+Example: `./install.sh "MyMacBookPro" "John Doe" "john.doe@example.com"`
