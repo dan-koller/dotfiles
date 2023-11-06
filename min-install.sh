@@ -39,6 +39,7 @@ brew install --cask teamviewer
 brew install --cask coconutbattery
 
 brew install --cask temurin17
+brew install --cask dotnet-sdk # Latest
 brew install --cask visual-studio-code
 
 ###########################

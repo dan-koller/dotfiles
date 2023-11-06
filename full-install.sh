@@ -15,7 +15,6 @@ brew install htop
 brew install --cask firefox
 brew install --cask temurin11
 brew install --cask temurin8
-brew install --cask dotnet-sdk # Latest
 brew install --cask dotnet-sdk6-0-400 # LTS
 brew install --cask intellij-idea-ce
 brew install --cask postman
