@@ -9,9 +9,9 @@
 -   Make the scripts executable -> `chmod +x .dotfiles/*.sh`
 -   Run `./.dotfiles/install.sh <hostname> <gitname> <gitemail>`
 
-_Please make sure to specify the hostname as cli argument. The git details are optional. You can also provide a `--full` flag to install all apps._
+_Please make sure to specify the hostname as cli argument. The git details are optional. You can also provide a `--full` flag as 4th option to install all apps._
 
-Example: `./install.sh "MyMacBookPro" "John Doe" "john.doe@example.com"`
+Example: `./install.sh "MyMacBookPro" "John Doe" "john.doe@example.com" --full`
 
 ## One-click-setup
 
