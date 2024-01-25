@@ -31,13 +31,6 @@ HOSTNAME=$1
 GITNAME=$2
 GITMAIL=$3
 
-# If --full is given, install all packages, otherwise set to "minimal"
-if [ "$4" = "--full" ]; then
-    INSTALL_MODE="full"
-else
-    INSTALL_MODE="minimal"
-fi
-
 # Change hostname
 echo -e "${YELLOW}Changing hostname to $1${ENDCOLOR}"
 sudo scutil --set HostName $1
@@ -118,14 +111,7 @@ fi
 
 # Run the Homebrew script and install packages
 echo "${YELLOW}🍺 Installing packages...${ENDCOLOR}"
-./min-install.sh
-
-# If --full is given, install additional packages
-if [ "$INSTALL_MODE" = "full" ]; then
-    echo "${YELLOW}Installing additional packages...${ENDCOLOR}"
-    ./full-install.sh
-fi
-
+./brew.sh
 echo "${GREEN}...done!${ENDCOLOR}"
 
 ###########################

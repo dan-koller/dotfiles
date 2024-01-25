@@ -8,6 +8,7 @@
 
 brew update && brew upgrade
 brew tap homebrew/cask-versions
+brew tap isen-ng/dotnet-sdk-versions
 
 ###########################
 # Brew packages
@@ -39,8 +40,9 @@ brew install --cask teamviewer
 brew install --cask coconutbattery
 
 brew install --cask temurin17
-brew install --cask dotnet-sdk # Latest
+brew install --cask dotnet-sdk8-0-100 # LTS
 brew install --cask visual-studio-code
+brew install --cask git-credential-manager
 
 ###########################
 # Brew cleanup
