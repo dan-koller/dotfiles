@@ -89,10 +89,10 @@ echo -e "${GREEN}Angular frontend $PROJ_NAME.Web created.${ENDCOLOR}"
 # Service setup
 ###########################
 
-dotnet new classlib -n $PROJ_NAME.Services
-dotnet sln add $PROJ_NAME.Services
+dotnet new classlib -n $PROJ_NAME.Service
+dotnet sln add $PROJ_NAME.Service
 
-echo -e "${GREEN}Service $PROJ_NAME.Services created.${ENDCOLOR}"
+echo -e "${GREEN}Service $PROJ_NAME.Service created.${ENDCOLOR}"
 
 ###########################
 # EF Core setup
@@ -112,6 +112,15 @@ dotnet sln add $PROJ_NAME.EntityModels.Sqlite
 echo -e "${GREEN}Finished setting up EF Core projects.${ENDCOLOR}"
 
 ###########################
+# Unit tests
+###########################
+
+dotnet new nunit -n $PROJ_NAME.UnitTests
+dotnet sln add $PROJ_NAME.UnitTests
+
+echo -e "${GREEN}Finished creating unit test project.${ENDCOLOR}"
+
+###########################
 # Link projects
 ###########################
 
@@ -119,14 +128,19 @@ echo -e "${GREEN}Finished setting up EF Core projects.${ENDCOLOR}"
 dotnet add $PROJ_NAME.DataContext.SqlServer reference $PROJ_NAME.EntityModels.SqlServer
 dotnet add $PROJ_NAME.DataContext.Sqlite reference $PROJ_NAME.EntityModels.Sqlite
 
-# ...the DataContext to the Services...
-dotnet add $PROJ_NAME.Services reference $PROJ_NAME.DataContext.SqlServer
-dotnet add $PROJ_NAME.Services reference $PROJ_NAME.DataContext.Sqlite
+# ...the DataContext to the Service...
+dotnet add $PROJ_NAME.Service reference $PROJ_NAME.DataContext.SqlServer
+dotnet add $PROJ_NAME.Service reference $PROJ_NAME.DataContext.Sqlite
 
-# ...and the Services & DataContext to the Webapi
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Services
+# ...and the Service & DataContext to the Webapi
+dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Service
 dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.DataContext.SqlServer
 dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.DataContext.Sqlite
+
+# Link the service and data context projects to the unit tests
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Service
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.DataContext.SqlServer
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.DataContext.Sqlite
 
 echo -e "${GREEN}Finished linking projects.${ENDCOLOR}"
 
@@ -136,13 +150,13 @@ echo -e "${GREEN}Finished linking projects.${ENDCOLOR}"
 
 SQLITE_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.DataContext.Sqlite\\$PROJ_NAME.DataContext.Sqlite.csproj\" />"
 SQLSERVER_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.DataContext.SqlServer\\$PROJ_NAME.DataContext.SqlServer.csproj\" />"
-PROJECTS=("$PROJ_NAME.Services" "$PROJ_NAME.Webapi")
+PROJECTS=("$PROJ_NAME.Service" "$PROJ_NAME.Webapi" "$PROJ_NAME.UnitTests")
 
 if [ "$DB_PROVIDER" = "mssql" ]; then
     for PROJECT in "${PROJECTS[@]}"
     do
         echo "${YELLOW}Commenting out SQLite dependency in $PROJECT.csproj${ENDCOLOR}"
-        sed -i '' "s~$(printf '%s\n' "$SQLITE_DEPENDENCY" | sed -e 's/[\/&]/\\&/g')~<!-- $SQLITE_DEPENDENCY -->~" "$PROJECT/$PROJECT.csproj"
+        sed -i '' "s~$(printf '%s\n' "$SQLITE_DEPENDENCY" | sed -e 's/[\/&]/\\&/g')~<!-- ${SQLITE_DEPENDENCY//\\/\\\\} -->~" "$PROJECT/$PROJECT.csproj"
     done
 fi
 
@@ -150,7 +164,7 @@ if [ "$DB_PROVIDER" = "sqlite" ]; then
     for PROJECT in "${PROJECTS[@]}"
     do
         echo "${YELLOW}Commenting out SQL Server dependency in $PROJECT.csproj${ENDCOLOR}"
-        sed -i '' "s~$(printf '%s\n' "$SQLSERVER_DEPENDENCY" | sed -e 's/[\/&]/\\&/g')~<!-- $SQLSERVER_DEPENDENCY -->~" "$PROJECT/$PROJECT.csproj"
+        sed -i '' "s~$(printf '%s\n' "$SQLSERVER_DEPENDENCY" | sed -e 's/[\/&]/\\&/g')~<!-- ${SQLSERVER_DEPENDENCY//\\/\\\\} -->~" "$PROJECT/$PROJECT.csproj"
     done
 fi
 
@@ -164,9 +178,9 @@ echo "${GREEN}Commented out unused EF Core dependency.${ENDCOLOR}"
 dotnet add $PROJ_NAME.DataContext.SqlServer package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0
 dotnet add $PROJ_NAME.DataContext.Sqlite package Microsoft.EntityFrameworkCore.Sqlite --version 8.0.0
 
-# Services
-dotnet add $PROJ_NAME.Services package Microsoft.EntityFrameworkCore --version 8.0.0
-dotnet add $PROJ_NAME.Services package Microsoft.Extensions.Hosting.Abstractions --version 8.0.0
+# Service
+dotnet add $PROJ_NAME.Service package Microsoft.EntityFrameworkCore --version 8.0.0
+dotnet add $PROJ_NAME.Service package Microsoft.Extensions.Hosting.Abstractions --version 8.0.0
 
 # Webapi
 dotnet add $PROJ_NAME.Webapi package Swashbuckle.AspNetCore --version 6.5.0
