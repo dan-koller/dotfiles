@@ -22,6 +22,7 @@ brew install python-tk@3.9
 brew install sqlite
 
 # Tools
+brew install git
 brew install node
 brew install neofetch
 brew install ncdu
