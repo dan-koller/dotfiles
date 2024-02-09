@@ -86,28 +86,31 @@ dotnet sln add $PROJ_NAME.Web
 echo -e "${GREEN}Angular frontend $PROJ_NAME.Web created.${ENDCOLOR}"
 
 ###########################
-# Service setup
+# Services setup
 ###########################
 
-dotnet new classlib -n $PROJ_NAME.Service
-dotnet sln add $PROJ_NAME.Service
+dotnet new classlib -n $PROJ_NAME.Services
+dotnet sln add $PROJ_NAME.Services
 
-echo -e "${GREEN}Service $PROJ_NAME.Service created.${ENDCOLOR}"
+echo -e "${GREEN}Services $PROJ_NAME.Services created.${ENDCOLOR}"
 
 ###########################
 # EF Core setup
 ###########################
 
 # Cross platform entity models
-dotnet new classlib -n $PROJ_NAME.EntityModels.SqlServer
-dotnet new classlib -n $PROJ_NAME.EntityModels.Sqlite
+dotnet new classlib -n $PROJ_NAME.Common.EntityModels.SqlServer
+dotnet new classlib -n $PROJ_NAME.Common.EntityModels.Sqlite
 
 # Cross platform data context
-dotnet new classlib -n $PROJ_NAME.DataContext.SqlServer
-dotnet new classlib -n $PROJ_NAME.DataContext.Sqlite
+dotnet new classlib -n $PROJ_NAME.Common.DataContext.SqlServer
+dotnet new classlib -n $PROJ_NAME.Common.DataContext.Sqlite
 
-dotnet sln add $PROJ_NAME.EntityModels.SqlServer
-dotnet sln add $PROJ_NAME.EntityModels.Sqlite
+dotnet sln add $PROJ_NAME.Common.EntityModels.SqlServer
+dotnet sln add $PROJ_NAME.Common.EntityModels.Sqlite
+
+dotnet sln add $PROJ_NAME.Common.DataContext.SqlServer
+dotnet sln add $PROJ_NAME.Common.DataContext.Sqlite
 
 echo -e "${GREEN}Finished setting up EF Core projects.${ENDCOLOR}"
 
@@ -125,22 +128,22 @@ echo -e "${GREEN}Finished creating unit test project.${ENDCOLOR}"
 ###########################
 
 # Link EntityModels to DataContext...
-dotnet add $PROJ_NAME.DataContext.SqlServer reference $PROJ_NAME.EntityModels.SqlServer
-dotnet add $PROJ_NAME.DataContext.Sqlite reference $PROJ_NAME.EntityModels.Sqlite
+dotnet add $PROJ_NAME.Common.DataContext.SqlServer reference $PROJ_NAME.Common.EntityModels.SqlServer
+dotnet add $PROJ_NAME.Common.DataContext.Sqlite reference $PROJ_NAME.Common.EntityModels.Sqlite
 
-# ...the DataContext to the Service...
-dotnet add $PROJ_NAME.Service reference $PROJ_NAME.DataContext.SqlServer
-dotnet add $PROJ_NAME.Service reference $PROJ_NAME.DataContext.Sqlite
+# ...the DataContext to the Services...
+dotnet add $PROJ_NAME.Services reference $PROJ_NAME.Common.DataContext.SqlServer
+dotnet add $PROJ_NAME.Services reference $PROJ_NAME.Common.DataContext.Sqlite
 
-# ...and the Service & DataContext to the Webapi
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Service
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.DataContext.SqlServer
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.DataContext.Sqlite
+# ...and the Services & DataContext to the Webapi
+dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Services
+dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Common.DataContext.SqlServer
+dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Common.DataContext.Sqlite
 
-# Link the service and data context projects to the unit tests
-dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Service
-dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.DataContext.SqlServer
-dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.DataContext.Sqlite
+# Link the Services and data context projects to the unit tests
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Services
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Common.DataContext.SqlServer
+dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Common.DataContext.Sqlite
 
 echo -e "${GREEN}Finished linking projects.${ENDCOLOR}"
 
@@ -148,9 +151,9 @@ echo -e "${GREEN}Finished linking projects.${ENDCOLOR}"
 # Comment out unused EF Core
 ###########################
 
-SQLITE_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.DataContext.Sqlite\\$PROJ_NAME.DataContext.Sqlite.csproj\" />"
-SQLSERVER_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.DataContext.SqlServer\\$PROJ_NAME.DataContext.SqlServer.csproj\" />"
-PROJECTS=("$PROJ_NAME.Service" "$PROJ_NAME.Webapi" "$PROJ_NAME.UnitTests")
+SQLITE_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.Common.DataContext.Sqlite\\$PROJ_NAME.Common.DataContext.Sqlite.csproj\" />"
+SQLSERVER_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.Common.DataContext.SqlServer\\$PROJ_NAME.Common.DataContext.SqlServer.csproj\" />"
+PROJECTS=("$PROJ_NAME.Services" "$PROJ_NAME.Webapi" "$PROJ_NAME.UnitTests")
 
 if [ "$DB_PROVIDER" = "mssql" ]; then
     for PROJECT in "${PROJECTS[@]}"
@@ -175,12 +178,12 @@ echo "${GREEN}Commented out unused EF Core dependency.${ENDCOLOR}"
 ###########################
 
 # DataContext
-dotnet add $PROJ_NAME.DataContext.SqlServer package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0
-dotnet add $PROJ_NAME.DataContext.Sqlite package Microsoft.EntityFrameworkCore.Sqlite --version 8.0.0
+dotnet add $PROJ_NAME.Common.DataContext.SqlServer package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.0
+dotnet add $PROJ_NAME.Common.DataContext.Sqlite package Microsoft.EntityFrameworkCore.Sqlite --version 8.0.0
 
-# Service
-dotnet add $PROJ_NAME.Service package Microsoft.EntityFrameworkCore --version 8.0.0
-dotnet add $PROJ_NAME.Service package Microsoft.Extensions.Hosting.Abstractions --version 8.0.0
+# Services
+dotnet add $PROJ_NAME.Services package Microsoft.EntityFrameworkCore --version 8.0.0
+dotnet add $PROJ_NAME.Services package Microsoft.Extensions.Hosting.Abstractions --version 8.0.0
 
 # Webapi
 dotnet add $PROJ_NAME.Webapi package Swashbuckle.AspNetCore --version 6.5.0
@@ -188,8 +191,13 @@ dotnet add $PROJ_NAME.Webapi package Swashbuckle.AspNetCore --version 6.5.0
 echo -e "${GREEN}Finished installing packages.${ENDCOLOR}"
 
 ###########################
-# Cleanup
+# Build and cleanup
 ###########################
+
+# Add a README.md
+echo "# $PROJ_NAME" > README.md
+echo "This project was bootstrapped with the dnc script." >> README.md
+echo "The configured database provider is $DB_PROVIDER." >> README.md
 
 # Build solution
 dotnet build
