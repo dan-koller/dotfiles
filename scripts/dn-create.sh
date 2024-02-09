@@ -4,7 +4,7 @@
 # This script creates a new
 # .NET fullstack project
 # with my typical setup.
-# Webapi, Anuglar, EF Core
+# WebApi, Anuglar, EF Core
 ###########################
 
 ###########################
@@ -68,13 +68,13 @@ dotnet new sln -n $PROJ_NAME
 echo -e "${GREEN}Solution $PROJ_NAME.sln created.${ENDCOLOR}"
 
 ###########################
-# Webapi setup
+# WebApi setup
 ###########################
 
-dotnet new webapi -n $PROJ_NAME.Webapi
-dotnet sln add $PROJ_NAME.Webapi
+dotnet new WebApi -n $PROJ_NAME.WebApi
+dotnet sln add $PROJ_NAME.WebApi
 
-echo -e "${GREEN}Webapi $PROJ_NAME.Webapi created.${ENDCOLOR}"
+echo -e "${GREEN}WebApi $PROJ_NAME.WebApi created.${ENDCOLOR}"
 
 ###########################
 # Angular setup
@@ -135,10 +135,10 @@ dotnet add $PROJ_NAME.Common.DataContext.Sqlite reference $PROJ_NAME.Common.Enti
 dotnet add $PROJ_NAME.Services reference $PROJ_NAME.Common.DataContext.SqlServer
 dotnet add $PROJ_NAME.Services reference $PROJ_NAME.Common.DataContext.Sqlite
 
-# ...and the Services & DataContext to the Webapi
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Services
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Common.DataContext.SqlServer
-dotnet add $PROJ_NAME.Webapi reference $PROJ_NAME.Common.DataContext.Sqlite
+# ...and the Services & DataContext to the WebApi
+dotnet add $PROJ_NAME.WebApi reference $PROJ_NAME.Services
+dotnet add $PROJ_NAME.WebApi reference $PROJ_NAME.Common.DataContext.SqlServer
+dotnet add $PROJ_NAME.WebApi reference $PROJ_NAME.Common.DataContext.Sqlite
 
 # Link the Services and data context projects to the unit tests
 dotnet add $PROJ_NAME.UnitTests reference $PROJ_NAME.Services
@@ -153,7 +153,7 @@ echo -e "${GREEN}Finished linking projects.${ENDCOLOR}"
 
 SQLITE_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.Common.DataContext.Sqlite\\$PROJ_NAME.Common.DataContext.Sqlite.csproj\" />"
 SQLSERVER_DEPENDENCY="<ProjectReference Include=\"..\\$PROJ_NAME.Common.DataContext.SqlServer\\$PROJ_NAME.Common.DataContext.SqlServer.csproj\" />"
-PROJECTS=("$PROJ_NAME.Services" "$PROJ_NAME.Webapi" "$PROJ_NAME.UnitTests")
+PROJECTS=("$PROJ_NAME.Services" "$PROJ_NAME.WebApi" "$PROJ_NAME.UnitTests")
 
 if [ "$DB_PROVIDER" = "mssql" ]; then
     for PROJECT in "${PROJECTS[@]}"
@@ -185,8 +185,8 @@ dotnet add $PROJ_NAME.Common.DataContext.Sqlite package Microsoft.EntityFramewor
 dotnet add $PROJ_NAME.Services package Microsoft.EntityFrameworkCore --version 8.0.0
 dotnet add $PROJ_NAME.Services package Microsoft.Extensions.Hosting.Abstractions --version 8.0.0
 
-# Webapi
-dotnet add $PROJ_NAME.Webapi package Swashbuckle.AspNetCore --version 6.5.0
+# WebApi
+dotnet add $PROJ_NAME.WebApi package Swashbuckle.AspNetCore --version 6.5.0
 
 echo -e "${GREEN}Finished installing packages.${ENDCOLOR}"
 
