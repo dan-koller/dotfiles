@@ -43,4 +43,3 @@ zstyle ':vcs_info:git:*' formats ' %F{032}git%f:(%F{011}%b%u%c%f)'
 # Aliases
 alias gpgf="git pull && git fetch"
 alias bubu="brew update && brew upgrade"
-alias dnc="zsh ~/.dotfiles/scripts/dn-create.sh"
