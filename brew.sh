@@ -14,10 +14,6 @@ brew tap isen-ng/dotnet-sdk-versions
 # Brew packages
 ###########################
 
-# Languages
-brew install python@3.9
-brew install python-tk@3.9
-
 # Databases
 brew install sqlite
 
@@ -36,8 +32,6 @@ brew install smartmontools
 brew install --cask google-chrome
 brew install --cask google-drive
 brew install --cask spotify
-brew install --cask discord
-brew install --cask teamviewer
 brew install --cask coconutbattery
 
 brew install --cask temurin17
