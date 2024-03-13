@@ -8,11 +8,14 @@
 
 brew update && brew upgrade
 brew tap homebrew/cask-versions
-brew tap isen-ng/dotnet-sdk-versions
 
 ###########################
 # Brew packages
 ###########################
+
+# Languages
+brew install python@3.11
+brew install python-tk@3.11
 
 # Databases
 brew install sqlite
@@ -35,7 +38,7 @@ brew install --cask spotify
 brew install --cask coconutbattery
 
 brew install --cask temurin17
-brew install --cask dotnet-sdk8-0-100 # LTS
+brew install --cask dotnet-sdk
 brew install --cask visual-studio-code
 brew install --cask git-credential-manager
 
