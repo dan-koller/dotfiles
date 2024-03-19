@@ -33,12 +33,14 @@ brew install smartmontools
 ###########################
 
 brew install --cask google-chrome
+brew install --cask brave-browser
 brew install --cask google-drive
 brew install --cask spotify
 brew install --cask coconutbattery
 
 brew install --cask temurin17
 brew install --cask dotnet-sdk
+brew install --cask pycharm-ce
 brew install --cask visual-studio-code
 brew install --cask git-credential-manager
 
