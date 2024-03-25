@@ -124,9 +124,9 @@ echo "${YELLOW}Installing vim plugin manager...${ENDCOLOR}"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "\n-------------------------------------"
-echo "${YELLOW}On first start of vim and neovim run:${ENDCOLOR}\n:PlugInstall"
-echo "-------------------------------------\n"
+echo "\n--------------------------"
+echo "${YELLOW}On first start of vim run:${ENDCOLOR}\n:PlugInstall"
+echo "--------------------------\n"
 
 # Finish
 echo "${GREEN}Installation finished!${ENDCOLOR}"
