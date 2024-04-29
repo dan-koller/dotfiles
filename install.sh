@@ -67,7 +67,7 @@ touch ${CONFIGDIR}/.zprofile
 # Additional Homebrew settings for arm macs
 if [ "$CPU_ARCH" = "arm64" ]; then
     echo "${YELLOW}Adding additional Homebrew settings...${ENDCOLOR}"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${homedir}/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ${HOMEDIR}/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -89,7 +89,7 @@ files=(.gitconfig .tmux.conf .vimrc .zprofile .zshrc)
 
 # Create symlinks (will replace old links) for config files
 for file in $files; do
-    echo "${YELLOW}🔗 Creating symlink to $file in $homedir${ENDCOLOR}"
+    echo "${YELLOW}🔗 Creating symlink to $file in $HOMEDIR${ENDCOLOR}"
     ln -sf ${CONFIGDIR}/${file} ${HOMEDIR}/${file}
 done
 
