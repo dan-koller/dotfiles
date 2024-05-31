@@ -22,9 +22,8 @@ brew install sqlite
 
 # Tools
 brew install git
-brew install node
-brew install neofetch
 brew install ncdu
+brew install neofetch
 brew install tmux
 brew install smartmontools
 
@@ -33,13 +32,11 @@ brew install smartmontools
 ###########################
 
 brew install --cask google-chrome
-brew install --cask brave-browser
 brew install --cask google-drive
 brew install --cask spotify
 brew install --cask coconutbattery
 
-brew install --cask temurin17
-brew install --cask dotnet-sdk
+brew install --cask temurin@17
 brew install --cask visual-studio-code
 brew install --cask git-credential-manager
 
