@@ -22,7 +22,6 @@ zstyle ':vcs_info:*' unstagedstr '*'
 # Prompt themes:
 ###########################
 
-# Pure prompt theme
 function precmd() {
     # Print a newline before the prompt, unless it's the first prompt in the process.
     if [ -z "$NEW_LINE_BEFORE_PROMPT" ]; then
@@ -31,6 +30,8 @@ function precmd() {
         echo ""
     fi
 }
+
+# Pure prompt theme
 NEWLINE=$'\n'
 PROMPT='%F{014}%c%f${vcs_info_msg_0_}${NEWLINE}%(!.#.%F{046}❯%f) '
 # VCS (Git) style
@@ -42,4 +43,4 @@ zstyle ':vcs_info:git:*' formats ' %F{032}git%f:(%F{011}%b%u%c%f)'
 
 # Aliases
 alias gpgf="git pull && git fetch"
-alias bubu="brew update && brew upgrade"
+alias bubu="brew update && brew upgrade && brew cleanup"
