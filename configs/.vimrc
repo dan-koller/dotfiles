@@ -7,7 +7,6 @@ Plug 'sheerun/vim-polyglot' " May cause issues with neovim
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/lightline.vim'
 Plug 'vim-syntastic/syntastic'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 call plug#end()
 
 """""""""""""
