@@ -3,7 +3,8 @@
 ###########################
 # This script sets up my Mac 
 # with all my favorite apps
-# and tools and creates symlinks.
+# and tools and creates 
+# symlinks.
 ###########################
 
 ###########################
@@ -36,7 +37,7 @@ echo -e "${YELLOW}Changing hostname to $1${ENDCOLOR}"
 sudo scutil --set HostName $1
 
 ###########################
-# Preinstall
+# Directories
 ###########################
 
 # User home directory

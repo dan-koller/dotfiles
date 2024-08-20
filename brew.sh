@@ -24,6 +24,7 @@ brew install sqlite
 brew install git
 brew install ncdu
 brew install neofetch
+brew install openssl@3
 brew install tmux
 brew install smartmontools
 
