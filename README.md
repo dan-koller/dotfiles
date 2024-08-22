@@ -4,7 +4,7 @@
 
 -   Install Xcode commandline tools -> `xcode-select --install`
 -   Install [Homebrew](https://brew.sh/) -> `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
--   Clone this repo -> `git clone https://github.com/dan-koller/.dotfiles.git`
+-   Clone this repo -> `git clone https://github.com/dikay/.dotfiles.git`
 -   Make the scripts executable -> `chmod +x .dotfiles/*.sh`
 -   Run `./.dotfiles/install.sh <hostname> <gitname> <gitemail>`
 
@@ -17,7 +17,7 @@ Example: `./install.sh "MyMacBookPro" "John Doe" "john.doe@example.com"`
 ```bash
 xcode-select --install \
   && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-  && git clone https://github.com/dan-koller/.dotfiles.git \
+  && git clone https://github.com/dikay/.dotfiles.git \
   && chmod +x .dotfiles/*.sh \
   && ./.dotfiles/install.sh "My-MBP"
 ```
