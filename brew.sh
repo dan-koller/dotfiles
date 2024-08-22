@@ -7,7 +7,6 @@
 ###########################
 
 brew update && brew upgrade
-brew tap homebrew/cask-versions
 
 ###########################
 # Brew packages
