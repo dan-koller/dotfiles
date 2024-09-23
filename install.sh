@@ -78,7 +78,7 @@ fi
 
 # Create necessary directories
 echo "${YELLOW}🗂 Creating necessary directories...${ENDCOLOR}"
-mkdir -p ~/Projekte
+mkdir -p ~/Developer
 echo "${GREEN}...done!${ENDCOLOR}"
 
 # Change into configuration subdir
