@@ -23,7 +23,7 @@ ENDCOLOR="\e[0m" # Reset
 
 # Check if commandline args are given
 if [ $# -eq 0 ]; then
-    echo -e "${RED}Please specifiy the Hostname './install.sh <hostname> <gitname> <gitemail>' and run the script again.${ENDCOLOR}"
+    echo -e "${RED}Please specifiy the hostname './install.sh <hostname>' and run the script again.${ENDCOLOR}"
     exit 1
 fi
 
@@ -86,7 +86,7 @@ echo "Changing into ${CONFIGDIR} subdirectory..."
 cd $CONFIGDIR
 
 # List all config files here
-files=(.gitconfig .tmux.conf .vimrc .zprofile .zshrc)
+files=(.gitconfig .vimrc .zprofile .zshrc)
 
 # Create symlinks (will replace old links) for config files
 for file in $files; do
