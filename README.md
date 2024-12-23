@@ -2,22 +2,31 @@
 
 ## Get started
 
--   Install Xcode commandline tools -> `xcode-select --install`
--   Install [Homebrew](https://brew.sh/) -> `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
--   Clone this repo -> `git clone https://github.com/dikayx/.dotfiles.git`
--   Make the scripts executable -> `chmod +x .dotfiles/*.sh`
--   Run `./.dotfiles/install.sh <hostname> <gitname> <gitemail>`
+-   Install Xcode commandline tools
 
-_The `hostname` is required, the `gitname` and `gitemail` are optional._
+    ```bash
+    xcode-select --install
+    ```
 
-Example: `./install.sh "MyMacBookPro" "John Doe" "john.doe@example.com"`
+-   Clone this repo & make scripts executable
+
+    ```bash
+    git clone https://github.com/dikayx/.dotfiles.git && chmod +x .dotfiles/*.sh
+    ```
+
+-   Run the script\*
+
+    ```bash
+    ./.dotfiles/install.sh -h "My-MBP" -gn "John Doe" -ge "<your_mail>@example.com"
+    ```
+
+_All arguments are optional. You can show a help message by providing the `--help` flag._
 
 ## One-click-setup
 
 ```bash
 xcode-select --install \
-  && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
   && git clone https://github.com/dikayx/.dotfiles.git \
   && chmod +x .dotfiles/*.sh \
-  && ./.dotfiles/install.sh "My-MBP"
+  && ./.dotfiles/install.sh -h "My-MBP"
 ```
