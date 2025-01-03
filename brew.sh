@@ -35,6 +35,7 @@ brew install --cask spotify
 brew install --cask coconutbattery
 
 brew install --cask temurin@17
+brew install --cask visual-studio-code
 brew install --cask git-credential-manager
 
 #############################################

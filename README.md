@@ -20,7 +20,7 @@
     ./.dotfiles/install.sh -h "My-MBP" -gn "John Doe" -ge "<your_mail>@example.com"
     ```
 
-_All arguments are optional. You can show a help message by providing the `--help` flag._
+_\*) All arguments are optional. You can show a help message by providing the `--help` flag._
 
 ## One-click-setup
 
